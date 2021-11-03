@@ -3,7 +3,9 @@ import styles from './Registration.module.css';
 
 function Registration(): JSX.Element {
   const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   console.log(firstName);
+  console.log(lastName);
   return (
     <form className={styles.form}>
       <span className={styles.options}>select participant</span>
@@ -23,6 +25,8 @@ function Registration(): JSX.Element {
         type="text"
         className={styles.inputField}
         placeholder="last name"
+        value={lastName}
+        onChange={(event) => setLastName(event.target.value)}
       ></input>
       <input type="submit" className={styles.button} value="Enter"></input>
     </form>
