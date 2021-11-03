@@ -23,7 +23,7 @@ function App(): JSX.Element {
           className={styles.inputField}
           placeholder="last name"
         ></input>
-        <input type="submit" className={styles.button} value={'Enter'}></input>
+        <input type="submit" className={styles.button} value="Enter"></input>
       </form>
     </main>
   );
