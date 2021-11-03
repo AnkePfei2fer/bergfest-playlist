@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './Registration.module.css';
 
 function Registration(): JSX.Element {
-  //   const [firstName, setFirstName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  console.log(firstName);
   return (
     <form className={styles.form}>
       <span className={styles.options}>select participant</span>
@@ -15,6 +16,8 @@ function Registration(): JSX.Element {
         type="text"
         className={styles.inputField}
         placeholder="first name"
+        value={firstName}
+        onChange={(event) => setFirstName(event.target.value)}
       ></input>
       <input
         type="text"
