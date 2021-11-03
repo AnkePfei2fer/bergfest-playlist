@@ -1,0 +1,44 @@
+.form {
+  background-color: rgba(3, 7, 13, 90%);
+  margin: 7.5rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0.5rem;
+  justify-items: center;
+  align-content: space-around;
+  border: dotted var(--color-main) 3px;
+  border-radius: 25%;
+}
+
+.options {
+  color: var(--color-main);
+  margin-top: 1rem;
+}
+
+.selection {
+  font-family: var(--font-family-main-text);
+  border: solid var(--color-main) 2px;
+  border-radius: 0.25rem;
+}
+
+.inputField {
+  font-family: var(--font-family-main-text);
+  color: dimgray;
+  border: solid var(--color-main) 2px;
+  border-radius: 0.25rem;
+}
+
+.button {
+  background-color: #9bf2d2;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: var(--font-family-main-text);
+  text-transform: uppercase;
+  margin: 1rem;
+  padding: 0.5rem 1.5rem;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+  color: var(--color-text-body);
+}
