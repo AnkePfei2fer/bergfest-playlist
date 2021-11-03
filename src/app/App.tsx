@@ -5,7 +5,7 @@ import Title from './components/Title/Title';
 function App(): JSX.Element {
   return (
     <main className={styles.container}>
-      <Title />
+      <Title text="Bergfest" />
       <form className={styles.form}>
         <span className={styles.options}>select participant</span>
         <select className={styles.selection}>
