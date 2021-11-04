@@ -4,7 +4,7 @@ import styles from './Registration.module.css';
 type User = {
   id: number;
   firstName: string;
-  lastname: string;
+  lastName: string;
 };
 
 type RegistrationProps = {
@@ -15,11 +15,9 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [users, setUsers] = useState<User[]>([]);
-  // const [selectedUserName, setSelectedUserName] = useState<string | null>(null);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    // alert(selectedUserName);
     fetch('https://json-server.machens.dev/users', {
       method: 'POST',
       headers: {
@@ -51,10 +49,6 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
     </option>
   ));
 
-  // function handleChange(event: ChangeEvent<HTMLSelectElement>) {
-  //   setSelectedUserName(event.target.value);
-  // }
-
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       select user
@@ -63,7 +57,7 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
         onClick={handleSelectClick}
         onChange={(event) => onSelectUserName(event.target.value)}
       >
-        <option disabled>select user</option>
+        <option>select user</option>
         {userOptions}
       </select>
       or create new

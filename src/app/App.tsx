@@ -6,8 +6,6 @@ import Registration from './components/Registration/Registration';
 function App(): JSX.Element {
   const [selectedUserName, setSelectedUserName] = useState<string | null>(null);
 
-  // console.log({ selectedUserName });
-
   let content;
 
   if (selectedUserName) {
