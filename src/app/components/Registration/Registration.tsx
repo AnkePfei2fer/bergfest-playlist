@@ -7,15 +7,19 @@ type User = {
   lastname: string;
 };
 
-function Registration(): JSX.Element {
+type RegistrationProps = {
+  onSelectUserName: (userName: string) => void;
+};
+
+function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [users, setUsers] = useState<User[]>([]);
-  const [selectedUserName, setSelectedUserName] = useState<string | null>(null);
+  // const [selectedUserName, setSelectedUserName] = useState<string | null>(null);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    alert(selectedUserName);
+    // alert(selectedUserName);
     fetch('https://json-server.machens.dev/users', {
       method: 'POST',
       headers: {
@@ -47,9 +51,9 @@ function Registration(): JSX.Element {
     </option>
   ));
 
-  function handleChange(event: ChangeEvent<HTMLSelectElement>) {
-    setSelectedUserName(event.target.value);
-  }
+  // function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+  //   setSelectedUserName(event.target.value);
+  // }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -57,7 +61,7 @@ function Registration(): JSX.Element {
       <select
         className={styles.selection}
         onClick={handleSelectClick}
-        onChange={handleChange}
+        onChange={(event) => onSelectUserName(event.target.value)}
       >
         <option disabled>select user</option>
         {userOptions}
