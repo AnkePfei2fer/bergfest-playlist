@@ -1,15 +1,21 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './Registration.module.css';
 
+type User = {
+  id: number;
+  firstName: string;
+  lastname: string;
+};
+
 function Registration(): JSX.Element {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [users, setUsers] = useState<User[]>([]);
-  const [selectedUser, setSelectedUser] = useState('');
+  const [selectedUserName, setSelectedUserName] = useState<string | null>(null);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    alert(selectedUser);
+    alert(selectedUserName);
     fetch('https://json-server.machens.dev/users', {
       method: 'POST',
       headers: {
@@ -36,13 +42,13 @@ function Registration(): JSX.Element {
   }
 
   const userOptions = users.map((user) => (
-    <option>
+    <option key={user.id}>
       {user.firstName} {user.lastName}
     </option>
   ));
 
-  function handleChange(event) {
-    setSelectedUser(event.target.value);
+  function handleChange(event: ChangeEvent<HTMLSelectElement>) {
+    setSelectedUserName(event.target.value);
   }
 
   return (
