@@ -4,6 +4,7 @@ import styles from './Registration.module.css';
 function Registration(): JSX.Element {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [users, setUsers] = useState([]);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -18,6 +19,7 @@ function Registration(): JSX.Element {
       }),
     });
   }
+
   function handleFirstNameChange(event: ChangeEvent<HTMLInputElement>) {
     setFirstName(event.target.value);
   }
@@ -25,14 +27,26 @@ function Registration(): JSX.Element {
     setLastName(event.target.value);
   }
 
+  async function handleSelectClick() {
+    const response = await fetch('https://json-server.machens.dev/users');
+    const newUsers = await response.json();
+    setUsers(newUsers);
+  }
+
+  const userOptions = users.map((user) => (
+    <option>
+      {user.firstName} {user.lastName}
+    </option>
+  ));
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <span className={styles.options}>select participant</span>
-      <select className={styles.selection}>
-        <option>Leon Machens</option>
-        <option>Lara Janzen</option>
+      select user
+      <select className={styles.selection} onClick={handleSelectClick}>
+        <option disabled>select user</option>
+        {userOptions}
       </select>
-      <span className={styles.options}>or create new</span>
+      or create new
       <input
         type="text"
         className={styles.inputField}

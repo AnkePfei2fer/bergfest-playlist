@@ -1,6 +1,5 @@
 .form {
   background-color: rgba(3, 7, 13, 90%);
-  margin: 7.5rem;
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   gap: 0.5rem;
@@ -8,11 +7,9 @@
   align-content: space-around;
   border: dotted var(--color-main) 3px;
   border-radius: 25%;
-}
-
-.options {
   color: var(--color-main);
-  margin-top: 1rem;
+  width: 15rem;
+  height: 15rem;
 }
 
 .selection {
