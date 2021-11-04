@@ -4,10 +4,12 @@ import styles from './Registration.module.css';
 function Registration(): JSX.Element {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectedUser, setSelectedUser] = useState('');
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    alert(selectedUser);
     fetch('https://json-server.machens.dev/users', {
       method: 'POST',
       headers: {
@@ -39,10 +41,18 @@ function Registration(): JSX.Element {
     </option>
   ));
 
+  function handleChange(event) {
+    setSelectedUser(event.target.value);
+  }
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       select user
-      <select className={styles.selection} onClick={handleSelectClick}>
+      <select
+        className={styles.selection}
+        onClick={handleSelectClick}
+        onChange={handleChange}
+      >
         <option disabled>select user</option>
         {userOptions}
       </select>
