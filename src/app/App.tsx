@@ -11,11 +11,7 @@ function App(): JSX.Element {
   if (selectedUserName) {
     content = <p>Please add some songs</p>;
   } else {
-    content = (
-      <Registration
-        onSelectUserName={(userName) => setSelectedUserName(userName)}
-      />
-    );
+    content = <Registration onSelectUserName={setSelectedUserName} />;
   }
 
   return (
