@@ -19,7 +19,7 @@ function Playlist() {
 
   const songList = data.map((song) => (
     <li key={song.id}>
-      {song.artist} {song.title}
+      {song.artist} - {song.title}
     </li>
   ));
 
