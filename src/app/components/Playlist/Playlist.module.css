@@ -17,7 +17,7 @@
 }
 
 .playlist {
-  background-color: rgba(3, 7, 13, 90%);
+  background-color: rgb(3 7 13 / 0.9);
   border: dotted var(--color-main) 3px;
   border-radius: 10%;
   color: var(--color-main);

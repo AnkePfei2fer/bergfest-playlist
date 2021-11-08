@@ -5,7 +5,17 @@ import Registration from './components/Registration/Registration';
 import Playlist from './components/Playlist/Playlist';
 
 function App(): JSX.Element {
-  const [selectedUserName, setSelectedUserName] = useState<string | null>(null);
+  const [selectedUserName, setSelectedUserName] = useState<string | null>(
+    sessionStorage.getItem('CurrentUser')
+  );
+
+  useEffect(() => {
+    if (selectedUserName) {
+      sessionStorage.setItem('CurrentUser', selectedUserName);
+    } else {
+      sessionStorage.removeItem('CurrentUser');
+    }
+  });
 
   useEffect(() => {
     document.title = selectedUserName ? `Hi ${selectedUserName}` : 'Bergfest';
@@ -14,10 +24,29 @@ function App(): JSX.Element {
   let content;
 
   if (selectedUserName) {
-    content = <Playlist />;
+    content = (
+      <>
+        <Playlist />
+        <button
+          className={styles.logoutButton}
+          onClick={() => setSelectedUserName(null)}
+        >
+          Logout
+        </button>
+      </>
+    );
   } else {
     content = <Registration onSelectUserName={setSelectedUserName} />;
   }
+
+  // {selectedUserName !== null && (
+  //   <button
+  //     className={styles.logout__submit}
+  //     onClick={() => setSelectedUserName(null)}
+  //   >
+  //     Logout
+  //   </button>
+  // )}
 
   return (
     <main className={styles.container}>
