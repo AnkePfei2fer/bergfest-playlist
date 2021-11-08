@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styles from './Registration.module.css';
 
 type User = {
@@ -16,9 +16,9 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
   const [lastName, setLastName] = useState('');
   const [users, setUsers] = useState<User[]>([]);
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    fetch('https://json-server.machens.dev/users', {
+    await fetch('https://json-server.machens.dev/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +28,15 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
         lastName: lastName,
       }),
     });
+    refreshUsers();
+    setFirstName('');
+    setLastName('');
   }
+
+  // Seiteneffekt, um Userliste beim Neuladen zu laden
+  useEffect(() => {
+    refreshUsers();
+  }, []);
 
   function handleFirstNameChange(event: ChangeEvent<HTMLInputElement>) {
     setFirstName(event.target.value);
@@ -37,7 +45,7 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
     setLastName(event.target.value);
   }
 
-  async function handleSelectClick() {
+  async function refreshUsers() {
     const response = await fetch('https://json-server.machens.dev/users');
     const newUsers = await response.json();
     setUsers(newUsers);
@@ -54,7 +62,6 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
       select user
       <select
         className={styles.selection}
-        onClick={handleSelectClick}
         onChange={(event) => onSelectUserName(event.target.value)}
       >
         <option>select user</option>
@@ -63,6 +70,7 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
       or create new
       <input
         type="text"
+        required
         className={styles.inputField}
         placeholder="first name"
         value={firstName}
@@ -70,6 +78,7 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
       ></input>
       <input
         type="text"
+        required
         className={styles.inputField}
         placeholder="last name"
         value={lastName}

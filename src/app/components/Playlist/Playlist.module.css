@@ -1,0 +1,26 @@
+.welcome {
+  display: grid;
+  grid-template-rows: auto 80%;
+  justify-items: center;
+}
+
+.button {
+  background-color: #9bf2d2;
+  border: solid black 3px;
+  border-radius: 0.5rem;
+  font-family: var(--font-family-main-text);
+  text-transform: uppercase;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.25rem;
+  height: fit-content;
+  width: fit-content;
+}
+
+.playlist {
+  background-color: rgb(3 7 13 / 0.9);
+  border: dotted var(--color-main) 3px;
+  border-radius: 10%;
+  color: var(--color-main);
+  padding: 1rem 1rem 0.5rem 2rem;
+  text-align: left;
+}
