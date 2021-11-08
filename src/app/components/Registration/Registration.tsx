@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styles from './Registration.module.css';
 
 type User = {
@@ -37,11 +37,14 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
     setLastName(event.target.value);
   }
 
-  async function handleSelectClick() {
+  async function refreshUsers() {
     const response = await fetch('https://json-server.machens.dev/users');
     const newUsers = await response.json();
     setUsers(newUsers);
   }
+  useEffect(() => {
+    refreshUsers();
+  }, []);
 
   const userOptions = users.map((user) => (
     <option key={user.id}>
@@ -54,7 +57,6 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
       select user
       <select
         className={styles.selection}
-        onClick={handleSelectClick}
         onChange={(event) => onSelectUserName(event.target.value)}
       >
         <option>select user</option>
@@ -63,6 +65,7 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
       or create new
       <input
         type="text"
+        required
         className={styles.inputField}
         placeholder="first name"
         value={firstName}
@@ -70,6 +73,7 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
       ></input>
       <input
         type="text"
+        required
         className={styles.inputField}
         placeholder="last name"
         value={lastName}
