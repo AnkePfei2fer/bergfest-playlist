@@ -16,9 +16,9 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
   const [lastName, setLastName] = useState('');
   const [users, setUsers] = useState<User[]>([]);
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    fetch('https://json-server.machens.dev/users', {
+    await fetch('https://json-server.machens.dev/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +28,15 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
         lastName: lastName,
       }),
     });
+    refreshUsers();
+    setFirstName('');
+    setLastName('');
   }
+
+  // Seiteneffekt, um Userliste beim Neuladen zu laden
+  useEffect(() => {
+    refreshUsers();
+  }, []);
 
   function handleFirstNameChange(event: ChangeEvent<HTMLInputElement>) {
     setFirstName(event.target.value);
@@ -42,9 +50,6 @@ function Registration({ onSelectUserName }: RegistrationProps): JSX.Element {
     const newUsers = await response.json();
     setUsers(newUsers);
   }
-  useEffect(() => {
-    refreshUsers();
-  }, []);
 
   const userOptions = users.map((user) => (
     <option key={user.id}>
